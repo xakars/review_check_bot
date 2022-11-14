@@ -43,13 +43,3 @@ def check_task_status(token):
                 continue
             else:
                 time.sleep(10)
-
-
-def main():
-    load_dotenv()
-    token = os.environ['DVMN_TOKEN']
-    print(check_task_status(token))
-
-
-if __name__ == '__main__':
-    main()
