@@ -16,6 +16,7 @@ def check_task_status(token):
     while True:
         try:
             response = requests.get(url, params=payloads, timeout=500, headers=headers)
+            response.raise_for_status()
             response_json = response.json()
             response_status = response_json["status"]
             if response_status == "found":
@@ -30,7 +31,7 @@ def check_task_status(token):
                 else:
                     message = f"{template}Преподователю все понравилось, можно приступать к следующему уроку"
                     return message
-            if task_status == "timeout":
+            if response_status == "timeout":
                 payloads = {"timestamp": response_json["timestamp_to_request"]}
             attempts_conn = 0
         except requests.exceptions.ReadTimeout:

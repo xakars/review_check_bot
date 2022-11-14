@@ -6,11 +6,8 @@ from dotenv import load_dotenv
 
 
 async def send_message(token, chat_id, message):
-    token = token
-    chat_id = chat_id
     bot = telegram.Bot(token=token)
     async with bot:
-        #print(await bot.get_me())
         await bot.send_message(text=message, chat_id=chat_id)
 
 
