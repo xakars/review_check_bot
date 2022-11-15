@@ -16,9 +16,8 @@ def main():
     dvmn_token = os.environ['DVMN_TOKEN']
     tg_token = os.environ["TG_TOKEN"]
     chat_id = os.environ["TG_CHAT_ID"]
-    while True:
-        message = check_task_status(dvmn_token)
-        asyncio.run(send_message(tg_token, chat_id, message))
+    message = check_task_status(dvmn_token)
+    asyncio.run(send_message(tg_token, chat_id, message))
 
 
 if __name__ == '__main__':
