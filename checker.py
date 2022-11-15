@@ -35,7 +35,7 @@ def check_task_status(token):
                 payloads = {"timestamp": response_json["timestamp_to_request"]}
             attempts_conn = 0
         except requests.exceptions.ReadTimeout:
-            print("There's no response.")
+            continue
         except requests.exceptions.ConnectionError:
             print("Are you connected to your internet?")
             attempts_conn += 1
