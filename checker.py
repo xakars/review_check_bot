@@ -17,10 +17,10 @@ def check_task_status(token):
         try:
             response = requests.get(url, params=payloads, timeout=500, headers=headers)
             response.raise_for_status()
-            response_json = response.json()
-            response_status = response_json["status"]
+            response = response.json()
+            response_status = response["status"]
             if response_status == "found":
-                lesson = response_json["new_attempts"][0]
+                lesson = response["new_attempts"][0]
                 lesson_status = lesson["is_negative"]
                 lesson_title = lesson["lesson_title"]
                 lesson_url = lesson["lesson_url"]
@@ -32,7 +32,7 @@ def check_task_status(token):
                     message = f"{template}Преподователю все понравилось, можно приступать к следующему уроку"
                     return message
             if response_status == "timeout":
-                payloads = {"timestamp": response_json["timestamp_to_request"]}
+                payloads = {"timestamp": response["timestamp_to_request"]}
             attempts_conn = 0
         except requests.exceptions.ReadTimeout:
             continue
