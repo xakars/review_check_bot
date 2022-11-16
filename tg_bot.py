@@ -1,5 +1,4 @@
 import telegram
-import asyncio
 import os
 from checker import check_task_status
 from dotenv import load_dotenv

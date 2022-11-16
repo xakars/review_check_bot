@@ -1,7 +1,5 @@
 import requests
-import os
 import time
-from dotenv import load_dotenv
 
 
 def check_task_status(token):
