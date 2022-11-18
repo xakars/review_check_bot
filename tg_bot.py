@@ -5,10 +5,11 @@ import os
 from dotenv import load_dotenv
 
 
-def check_task_status(token):
+def notify_about_review_status(dvmn_token, tg_token, chat_id):
+    bot = telegram.Bot(token=tg_token)
     url = "https://dvmn.org/api/long_polling/"
     headers = {
-        "Authorization": f"Token {token}"
+        "Authorization": f"Token {dvmn_token}"
     }
     payloads = {
         "timestamp": ""
@@ -28,10 +29,10 @@ def check_task_status(token):
                 template = f"У вас проверели работу '{lesson_title}' \n{lesson_url}\n"
                 if lesson_status:
                     message = f"{template}К сожалению, в работе нашлись ошибки"
-                    return message
+                    bot.send_message(text=message, chat_id=chat_id)
                 else:
                     message = f"{template}Преподователю все понравилось, можно приступать к следующему уроку"
-                    return message
+                    bot.send_message(text=message, chat_id=chat_id)
             if response_status == "timeout":
                 payloads = {"timestamp": review_result["timestamp_to_request"]}
             attempts_conn = 0
@@ -51,9 +52,7 @@ def main():
     dvmn_token = os.environ['DVMN_TOKEN']
     tg_token = os.environ["TG_TOKEN"]
     chat_id = os.environ["TG_CHAT_ID"]
-    message = check_task_status(dvmn_token)
-    bot = telegram.Bot(token=tg_token)
-    bot.send_message(text=message, chat_id=chat_id)
+    notify_about_review_status(dvmn_token, tg_token, chat_id)
 
 
 if __name__ == '__main__':
