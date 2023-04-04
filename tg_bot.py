@@ -3,9 +3,14 @@ import requests
 import time
 import os
 from dotenv import load_dotenv
+import logging
+
+
+logging.basicConfig(level=logging.INFO)
 
 
 def notify_about_review_status(dvmn_token, tg_token, chat_id):
+    logging.info('Bot started')
     bot = telegram.Bot(token=tg_token)
     url = "https://dvmn.org/api/long_polling/"
     headers = {
