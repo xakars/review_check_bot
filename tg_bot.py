@@ -38,6 +38,7 @@ def notify_about_review_status(dvmn_token, tg_token, chat_id):
                 else:
                     message = f"{template}Преподователю все понравилось, можно приступать к следующему уроку"
                     bot.send_message(text=message, chat_id=chat_id)
+                payloads = {"timestamp": ""}
             if response_status == "timeout":
                 payloads = {"timestamp": review_result["timestamp_to_request"]}
             attempts_conn = 0
