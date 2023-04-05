@@ -4,13 +4,24 @@ import time
 import os
 from dotenv import load_dotenv
 import logging
+from logger import TelegramLogsHandler
 
 
-logging.basicConfig(level=logging.INFO)
+load_dotenv()
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+logger_bot_token = os.environ['LOGGER_BOT_TOKEN']
+logger_bot = telegram.Bot(token=logger_bot_token)
+admin_chat_id = os.environ["ADMIN_CHAT_ID"]
+
+bot_logger_handler = TelegramLogsHandler(logger_bot, admin_chat_id)
+logger.addHandler(bot_logger_handler)
 
 
 def notify_about_review_status(dvmn_token, tg_token, chat_id):
-    logging.info('Bot started')
+    logger.info('Bot started')
     bot = telegram.Bot(token=tg_token)
     url = "https://dvmn.org/api/long_polling/"
     headers = {
@@ -54,7 +65,6 @@ def notify_about_review_status(dvmn_token, tg_token, chat_id):
 
 
 def main():
-    load_dotenv()
     dvmn_token = os.environ['DVMN_TOKEN']
     tg_token = os.environ["TG_TOKEN"]
     chat_id = os.environ["TG_CHAT_ID"]
