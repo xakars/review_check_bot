@@ -15,6 +15,8 @@ Before use, you need to set DVMN_TOKEN, TG_TOKEN, TG_CHAT_ID in `.env` file.
 DVMN_TOKEN=
 TG_TOKEN=
 TG_CHAT_ID=
+LOGGER_BOT_TOKEN=
+ADMIN_CHAT_ID=
 ```
 To receive notification in telegram run `tg_bot.py`:
 ```
