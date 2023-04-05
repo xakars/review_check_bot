@@ -68,9 +68,12 @@ def main():
     dvmn_token = os.environ['DVMN_TOKEN']
     tg_token = os.environ["TG_TOKEN"]
     chat_id = os.environ["TG_CHAT_ID"]
-    notify_about_review_status(dvmn_token, tg_token, chat_id)
+    while True:
+        try:
+            notify_about_review_status(dvmn_token, tg_token, chat_id)
+        except Exception as err:
+            logger.exception(f"Бот упал с ошибкой:\n, {err}")
 
 
 if __name__ == '__main__':
     main()
-
