@@ -54,17 +54,6 @@ def notify_about_review_status(dvmn_token, tg_token, chat_id):
 
 
 def main():
-    dvmn_token = os.environ['DVMN_TOKEN']
-    tg_token = os.environ["TG_TOKEN"]
-    chat_id = os.environ["TG_CHAT_ID"]
-    while True:
-        try:
-            notify_about_review_status(dvmn_token, tg_token, chat_id)
-        except Exception as err:
-            logger.exception(f"Бот упал с ошибкой:\n, {err}")
-
-
-if __name__ == '__main__':
     load_dotenv()
 
     logger.setLevel(logging.INFO)
@@ -74,5 +63,16 @@ if __name__ == '__main__':
     bot_logger_handler = TelegramLogsHandler(logger_bot, admin_chat_id)
     logger.addHandler(bot_logger_handler)
 
-    main()
+    dvmn_token = os.environ['DVMN_TOKEN']
+    tg_token = os.environ["TG_TOKEN"]
+    chat_id = os.environ["TG_CHAT_ID"]
 
+    while True:
+        try:
+            notify_about_review_status(dvmn_token, tg_token, chat_id)
+        except Exception as err:
+            logger.exception(f"Бот упал с ошибкой:\n, {err}")
+
+
+if __name__ == '__main__':
+    main()
