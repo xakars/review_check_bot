@@ -7,18 +7,7 @@ import logging
 from logger import TelegramLogsHandler
 
 
-load_dotenv()
-
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-
-logger_bot_token = os.environ['LOGGER_BOT_TOKEN']
-logger_bot = telegram.Bot(token=logger_bot_token)
-admin_chat_id = os.environ["ADMIN_CHAT_ID"]
-
-bot_logger_handler = TelegramLogsHandler(logger_bot, admin_chat_id)
-logger.addHandler(bot_logger_handler)
-
 
 def notify_about_review_status(dvmn_token, tg_token, chat_id):
     logger.info('Bot started')
@@ -76,4 +65,14 @@ def main():
 
 
 if __name__ == '__main__':
+    load_dotenv()
+
+    logger.setLevel(logging.INFO)
+    logger_bot_token = os.environ['LOGGER_BOT_TOKEN']
+    logger_bot = telegram.Bot(token=logger_bot_token)
+    admin_chat_id = os.environ["ADMIN_CHAT_ID"]
+    bot_logger_handler = TelegramLogsHandler(logger_bot, admin_chat_id)
+    logger.addHandler(bot_logger_handler)
+
     main()
+
