@@ -22,3 +22,14 @@ To receive notification in telegram run `tg_bot.py`:
 ```
 python tg_bot.py
 ```
+### Running in a container
+
+First, build the container image using the following command:
+```
+docker build -t review_bot .  
+```
+After the image has been built, you can start a container by running the following command:
+```
+docker run -d --env-file .env review_bot 
+```
+This will start the container in detached mode with environment variables set in the .env file.
